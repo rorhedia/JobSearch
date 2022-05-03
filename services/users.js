@@ -1,12 +1,21 @@
-const { mongoose } = require( 'mongoose' );
+const UserModel = require( '../models/users' );
 
 class Users {
-    getAll() {
 
+    async getAll() {
+        try {
+            return await UserModel.find();
+        } catch ( e ) {
+            throw e;
+        }
     }
 
-    async create(data) {
-
+    async create( data ) {
+        try {
+            return await UserModel.create( data );
+        } catch ( e ) {
+            throw e;
+        }
     }
 }
 
