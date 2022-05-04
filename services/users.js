@@ -17,6 +17,23 @@ class Users {
             throw e;
         }
     }
+
+    async update( id, data ) {
+        try {
+            return await UserModel.findByIdAndUpdate( id, data );
+        } catch ( e ) {
+            throw e;
+        }
+    }
+
+    async delete( id ) {
+        try {
+            return await UserModel.findByIdAndDelete( id );
+        } catch ( e ) {
+            throw e;
+        }
+    }
+
 }
 
 module.exports = Users;

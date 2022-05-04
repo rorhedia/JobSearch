@@ -20,7 +20,26 @@ function users( app ) {
 
     router.post( '/', async ( req, res ) => {
         try {
-            const users = await userSvc.create( res.body );
+            console.log( req.body );
+            const users = await userSvc.create( req.body );
+            return res.json( users );
+        } catch ( e ) {
+            errorHandler( res, e );
+        }
+    } );
+
+    router.put( '/:id', async ( req, res ) => {
+        try {
+            const users = await userSvc.update( req.params.id, req.body );
+            return res.json( users );
+        } catch ( e ) {
+            errorHandler( res, e );
+        }
+    } );
+
+    router.delete( '/:id', async ( req, res ) => {
+        try {
+            const users = await userSvc.delete( req.params.id );
             return res.json( users );
         } catch ( e ) {
             errorHandler( res, e );
