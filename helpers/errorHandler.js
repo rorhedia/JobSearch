@@ -1,9 +1,9 @@
 function errorHandler( res, error ) {
-    console.log( error );
+    console.log( error.message );
 
-    return res.code( 500 ).json( {
-        success: false,
-        error  : '¡Error!'
+    return res.status( 500 ).json( {
+        error  : true,
+        message: '¡Error!'
     } )
 }
 

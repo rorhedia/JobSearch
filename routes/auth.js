@@ -1,5 +1,6 @@
-const express = require( 'express' );
-const Auth    = require( '../services/auth' );
+const express      = require( 'express' );
+const Auth         = require( '../services/auth' );
+const errorHandler = require( '../helpers/errorHandler' );
 
 function auth( app ) {
     const router  = express.Router();
@@ -8,8 +9,21 @@ function auth( app ) {
     app.use( '/api/auth', router );
 
     router.post( '/login', async ( req, res ) => {
-        const token = AuthSvc.login( req.body );
-        return res.json( { token } );
+        try {
+            const token = await AuthSvc.login( req.body );
+            return res.json( { token } );
+        } catch ( e ) {
+            errorHandler( res, e );
+        }
+    } )
+
+    router.post( '/signup', async ( req, res ) => {
+        try {
+            const token = await AuthSvc.signup( req.body );
+            return res.json( { token } );
+        } catch ( e ) {
+            errorHandler( res, e );
+        }
     } )
 
 }
