@@ -1,6 +1,7 @@
-const express      = require( 'express' );
-const Users        = require( '../services/users' );
-const errorHandler = require( '../helpers/errorHandler' );
+const express        = require( 'express' );
+const Users          = require( '../services/users' );
+const errorHandler   = require( '../helpers/errorHandler' );
+const authValidation = require( '../middleware/authValidation' );
 
 function users( app ) {
 
@@ -9,7 +10,7 @@ function users( app ) {
 
     app.use( '/api/users', router );
 
-    router.get( '/', async ( req, res ) => {
+    router.get( '/', authValidation, async ( req, res ) => {
         try {
             const users = await userSvc.getAll();
             return res.json( users );

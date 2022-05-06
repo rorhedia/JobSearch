@@ -10,8 +10,8 @@ function auth( app ) {
 
     router.post( '/login', async ( req, res ) => {
         try {
-            const token = await AuthSvc.login( req.body );
-            return res.json( { token } );
+            const result = await AuthSvc.login( req.body );
+            return res.json( result );
         } catch ( e ) {
             errorHandler( res, e );
         }
@@ -19,8 +19,8 @@ function auth( app ) {
 
     router.post( '/signup', async ( req, res ) => {
         try {
-            const token = await AuthSvc.signup( req.body );
-            return res.json( { token } );
+            const result = await AuthSvc.signup( req.body );
+            return res.json( result );
         } catch ( e ) {
             errorHandler( res, e );
         }

@@ -10,6 +10,14 @@ class Users {
         }
     }
 
+    async getByEmail( email ) {
+        try {
+            return await UserModel.findOne( { email } );
+        } catch ( e ) {
+            throw e;
+        }
+    }
+
     async create( data ) {
         try {
             return await UserModel.create( data );
