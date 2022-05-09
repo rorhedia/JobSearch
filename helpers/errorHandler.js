@@ -1,5 +1,5 @@
 function errorHandler( res, error ) {
-    console.log( error.message );
+    console.log( error );
 
     return res.status( 500 ).json( {
         error  : true,

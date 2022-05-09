@@ -1,7 +1,7 @@
-const express        = require( 'express' );
-const Users          = require( '../services/users' );
-const errorHandler   = require( '../helpers/errorHandler' );
-const authValidation = require( '../middleware/authValidation' );
+const express                             = require( 'express' );
+const Users                               = require( '../services/users' );
+const errorHandler                        = require( '../helpers/errorHandler' );
+const { authValidation, adminValidation } = require( '../middleware/authValidation' );
 
 function users( app ) {
 
@@ -9,8 +9,10 @@ function users( app ) {
     const userSvc = new Users();
 
     app.use( '/api/users', router );
+    router.use( authValidation );
+    router.use( adminValidation );
 
-    router.get( '/', authValidation, async ( req, res ) => {
+    router.get( '/', async ( req, res ) => {
         try {
             const users = await userSvc.getAll();
             return res.json( users );

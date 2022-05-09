@@ -12,7 +12,7 @@ function authValidation( req, res, next ) {
 
     try {
         const [ , token ] = authorization.split( ' ' );
-        jwt.verify( token, JWT_SECRET );
+        req.user          = jwt.verify( token, JWT_SECRET );
         return next();
     } catch ( e ) {
         return res.status( 403 ).json( {
@@ -22,4 +22,16 @@ function authValidation( req, res, next ) {
     }
 }
 
-module.exports = authValidation;
+function adminValidation( req, res, next ) {
+    const { user } = req;
+    if ( user.role === 'admin' ) {
+        return next();
+    }
+
+    return res.status( 403 ).json( {
+        error  : true,
+        message: 'No tienes los permisos para esta operación'
+    } )
+}
+
+module.exports = { authValidation, adminValidation };
